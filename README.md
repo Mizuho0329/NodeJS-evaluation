@@ -41,3 +41,6 @@ Pour utiliser cette méthode, utilisez les paramètres suivant :
 `{"id" : "5894af975cdc7400113ef7f9" "fact" : "toto"}`  
 Route pour voir l’historique  
 `/all`  
+
+## Participants  
+Toxé Mizuo, Guillodo Yannick, Larose Marina
