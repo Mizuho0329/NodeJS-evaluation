@@ -1,5 +1,5 @@
-#Documentation  
-##L’application  
+# Documentation  
+## L’application  
 L’application a pour but d’envoyer des anecdotes de chat  
 
 Nous nous basons sur l’API suivante :  
@@ -7,26 +7,26 @@ Nous nous basons sur l’API suivante :
 En utilisant différent ID, nous pouvons obtenir les facts correspondantes.  
 
 
-##Installation des modules  
+## Installation des modules  
 Après avoir récupérer le projet, vérifier l’existence du fichier package.json et faire la commande suivante :  
 `npm install`  
 Dans le fichier package.json, nous retrouvons les modules suivants :  
-•	npm  
-•	babel  
-•	express  
-•	axios  
-•	lowdb  
-•	jest  
-•	supertest  
+* npm  
+* babel  
+* express  
+* axios  
+* lowdb  
+* jest  
+* supertest  
 
-##Démarrage de l’application  
+## Démarrage de l’application  
 Pour démarrer l’application, utiliser la commande suivante :   
 `npm run start`  
 
-##Tester l’application  
+## Tester l’application  
 lancer le script test avec la commande  
 `npm run test`  
-##Routes disponibles & paramètres  
+## Routes disponibles & paramètres  
 Routes de la méthode GET  
 `/facts/:factID `                           
 Route de la méthode DELETE  
