@@ -34,12 +34,12 @@ Route de la méthode DELETE
 Route pour la méthode POST  
 `/add`  
 Pour utiliser cette méthode, utilisez les paramètres suivant :  
-`{"id" : "5894af975cdc7400113ef7f9" "fact" : "toto"}`  
+`{"fact" : "toto"}`  
 Route pour la méthode PUT  
 `/update`  
 Pour utiliser cette méthode, utilisez les paramètres suivant :  
 `{"id" : "5894af975cdc7400113ef7f9" "fact" : "toto"}`  
-Route pour voir l’historique  
+Route pour voir tous les enregistrements de la base 
 `/all`  
 
 ## Participants  
