@@ -20,14 +20,14 @@ const axiosApi = axios.create({
 })
 
 // GET methode : router gets request from frontend *async/await ES6*
-// localhost:5000/api/cats/:factID
-router.get('/facts/:factID', ({ params }, res, next) => { // req, res, next
-    const {factID} = params // optimisation 2 ({params} , res, next)
+// localhost:5000/api/facts/:factID
+router.get('/facts/:factID', ({ params }, res, next) => {
+    const {factID} = params
     console.log(factID)
     // axiosApi gets request
     async function axiosApiCall(){
         try {
-        // access to db
+        // access db 
         let result = db
             .get('results')
             .find(result => {
@@ -36,10 +36,11 @@ router.get('/facts/:factID', ({ params }, res, next) => { // req, res, next
             .value()
         
             if(!result){
-                const response = await axiosApi.get(`/facts/${factID}`) //(`/?_id=${factID}`)//('/facts/58e008800aac31001185ed07') //
+                const response = await axiosApi.get(`/facts/${factID}`)
                 console.log(response)
                 result = {
-                    id: response.data._id,
+                    id: Date.now(),
+                    id_source: response.data._id,
                     fact: response.data.text
                 }
                 // insertion to db
@@ -55,10 +56,45 @@ router.get('/facts/:factID', ({ params }, res, next) => { // req, res, next
     axiosApiCall()
 })
 
-// 
+//POST method
+// curl -X POST http://localhost:5000/api/add -H "Content-type: application/json" -d '{ "fact" : "toto" }'
+router.post('/add', (req, res, next) => {
+    
+    let newfact = req.body.fact
+    console.log(newfact)
 
+    let facts = db.get('results')
+    if(facts.filter(facts => facts == newfact)){
+        res.send(`${newfact} exists already !`)
+    }else{
+        let newItem =  {
+            id: Date.now(),
+            id_source: "",
+            fact: newfact
+        }
+        facts.push(newItem)
+        .write()
+        res.send(`${newfact} has been added !`)
+    }
+})
 
+//PUT method
+// curl -X PUT http://localhost:5000/api/update -H "Content-type: application/json" -d '{ "id" : "xxx", "fact" : "newfact"}'
+router.put('/update', (req, res) => {
+    let idToUpdate = req.body.id
+    let newFact = req.body.fact
+    console.log(newFact)
 
+    let facts = db.get('results')
+    let result = facts.find(facts => facts.id == idToUpdate)
+    if(result){
+        result.assign({ fact: newFact})
+        .write()
+        res.send(`${newFact} has been changed !`)
+    }else{
+        res.send(`${idToUpdate} doesn't exist !`)
+    }
+})
 
 export default router // ES5 with babel
 export const restApi = axiosApi
