@@ -30,7 +30,7 @@ lancer le script test avec la commande
 Routes de la méthode GET  
 `/facts/:factID `                           
 Route de la méthode DELETE  
-`/delete / :id`  
+`/delete /:id`  
 Route pour la méthode POST  
 `/add`  
 Pour utiliser cette méthode, utilisez les paramètres suivant :  
