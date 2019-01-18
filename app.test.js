@@ -27,14 +27,14 @@ describe('api.js', () => {
     test('DELETE /delete/:id', done => {
         // insertion de données en base
         db.get('results')
-            .push({ id: 111, fact: "The Persian is the most popular pedigreed cat breed in North America." })
+            .push({ id: 1547824318370, id_source: "58e00be30aac31001185edfe", fact: "Cats use their whiskers to detect if they can fit through a space." })
             .write()
         // appel à la route
         supertest(app)
-            .delete('/api/delete/1')
+            .delete('/api/delete/1547824318370')
             .expect(204, {})
             .expect(() => {
-                const result = db.get('results').find({ id: 111 }).value()
+                const result = db.get('results').find({ id: 1547824318370 }).value()
                 expect(result).toBeUndefined()
             })
             .end(done)
@@ -44,12 +44,33 @@ describe('api.js', () => {
     test('DELETE /delete/:id inconnu', done => {
         // insertion de données en base
         db.get('results')
-            .push({ id: 111, fact: "The Persian is the most popular pedigreed cat breed in North America." })
+            .push({ id: 1547824318370, id_source: "58e00be30aac31001185edfe", fact: "Cats use their whiskers to detect if they can fit through a space." })
             .write()
         // appel à la route
         supertest(app)
             .delete('/api/delete/1245')  //valeur inexistante
             .expect(204, {})
+            .end(done)
+    })
+
+
+    //contrôle
+    test('GET /all', done => {
+        // insertion de données en base
+        db.get('results')
+            .push({ id: 1547824318370, id_source: "58e00be30aac31001185edfe", fact: "Cats use their whiskers to detect if they can fit through a space." })
+            .push({ id: 1547824329287, id_source: "58e009390aac31001185ed10", fact: "Cats are often lactose intolerant, so stop givin' them milk!"})
+            .write()
+
+        supertest(app)
+            .get('/api/all')
+            .expect(200)
+            .expect(({ body }) => {
+                expect(body).toStrictEqual([
+                    { id: 1547824318370, id_source: "58e00be30aac31001185edfe", fact: "Cats use their whiskers to detect if they can fit through a space." },
+                    { id: 1547824329287, id_source: "58e009390aac31001185ed10", fact: "Cats are often lactose intolerant, so stop givin' them milk!"}
+                ])
+            })
             .end(done)
     })
 
