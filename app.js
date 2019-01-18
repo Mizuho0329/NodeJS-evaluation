@@ -2,7 +2,7 @@ import express from 'express'
 const app = express()
 import api from './api'
 
-app.use('api', api)
+app.use('/api', api)
 
 // handle error
 app.use((err, req, res, next) => {
