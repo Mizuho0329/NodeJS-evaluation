@@ -78,6 +78,24 @@ router.post('/add', (req, res, next) => {
     }
 })
 
+//route de suppression par id
+// commande a lancer dans un autre terminal curl -X "DELETE" http://localhost:5000/api/delete/58e008780aac31001185ed05
+router.delete('/delete/:id', ({ params: { id } }, res) => {
+    db.get('results')
+        .remove({ id: parseInt(id)})   //conversion en entier
+        .write()
+    res.status(204).send()
+})
+
+
+
+//gestion de l'history http://localhost:5000/api/all
+router.get('/all', (req, res) =>{
+
+    let results = db.get('results')
+    res.send(results.value())
+})
+
 //PUT method
 // curl -X PUT http://localhost:5000/api/update -H "Content-type: application/json" -d '{ "id" : "xxx", "fact" : "newfact"}'
 router.put('/update', (req, res) => {
