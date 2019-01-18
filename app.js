@@ -22,3 +22,6 @@ app.listen(5000, function () {
 //https://www.gardeningchannel.com/
 //https://www.gardeningchannel.com/category/flowers/
 //https://www.gardeningchannel.com/category/fruits-vegetables/
+
+//pour utiliser Supertest
+export default app;
