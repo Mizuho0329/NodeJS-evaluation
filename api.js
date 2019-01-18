@@ -23,7 +23,6 @@ const axiosApi = axios.create({
 // localhost:5000/api/facts/:factID
 router.get('/facts/:factID', ({ params }, res, next) => {
     const {factID} = params
-    console.log(factID)
     // axiosApi gets request
     async function axiosApiCall(){
         try {
@@ -37,11 +36,10 @@ router.get('/facts/:factID', ({ params }, res, next) => {
         
             if(!result){
                 const response = await axiosApi.get(`/facts/${factID}`)
-                console.log(response)
                 result = {
                     id: Date.now(),
                     id_source: response.data._id,
-                    fact: response.data.text
+                    fact: respondbse.data.text
                 }
                 // insertion to db
                 db.get('results')
@@ -61,7 +59,6 @@ router.get('/facts/:factID', ({ params }, res, next) => {
 router.post('/add', (req, res, next) => {
     
     let newfact = req.body.fact
-    console.log(newfact)
 
     let facts = db.get('results')
     if(facts.filter(facts => facts == newfact)){
@@ -101,7 +98,6 @@ router.get('/all', (req, res) =>{
 router.put('/update', (req, res) => {
     let idToUpdate = req.body.id
     let newFact = req.body.fact
-    console.log(newFact)
 
     let facts = db.get('results')
     let result = facts.find(facts => facts.id == idToUpdate)
